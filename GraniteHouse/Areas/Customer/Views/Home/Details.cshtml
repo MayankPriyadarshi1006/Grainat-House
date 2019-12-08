@@ -1,0 +1,101 @@
+﻿
+@model GraniteHouse.Models.Product
+@using GraniteHouse.Extensions
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Details";
+}
+
+<br />
+<h2 class="text-info">Details product</h2>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="p-4 border rounded row">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Name"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Name" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Price"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Price" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="productTypes"></label>
+                </div>
+                <div class="col-8">
+                    <input disabled asp-for="productTypes.Name" class="form-control" />
+                    @*<select asp-for="@Model.productTypes.Name" class="form-control"></select>*@
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="specialtags"></label>
+                </div>
+                <div class="col-8">
+                    <input disabled asp-for="specialtags.Name" class="form-control" />
+                    @*<select asp-for="@Model.specialtags.Name" class="form-control"></select>*@
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ShadeColor"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="ShadeColor" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Available"></label>
+                </div>
+                <div class="col-8">
+                    <input type="checkbox" asp-for="Available" />
+                </div>
+            </div>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-3">
+            <img src="@Model.Image" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+        </div>
+
+        <br />
+        <div>
+            @{
+                bool isBag = false;
+                List<int> lstcart = HttpContextAccessor.HttpContext.Session.Get<List<int>>("ssShoppingCart");
+                if (lstcart != null && lstcart.Contains(Model.Id))
+                {
+                    isBag = true;
+                }
+
+            }
+            @if (isBag)
+            {
+            <button type="submit" class="btn btn-primary" value="Remove from Bag" asp-action="Remove" asp-route-id="@Model.Id">Remove from Bag</button>
+            }
+            else
+            {
+            <button type="submit" class="btn btn-primary" value="Add to Cart" asp-route-Id="@Model.Id">Add to Cart</button>
+            }
+            <a asp-action="Index" class="btn btn-success">Back to list</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

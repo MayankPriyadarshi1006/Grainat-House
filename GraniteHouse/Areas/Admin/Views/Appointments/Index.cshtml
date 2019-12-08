@@ -1,0 +1,123 @@
+﻿@model GraniteHouse.Models.ViewModel.AppointmentViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<div>
+    <a asp-action="Create" class="btn btn-primary">New Product type</a>
+</div>
+
+<div class="row>">
+    <h2>Appoitment List</h2>
+</div>
+<div style="height: 150px; background-color:aliceblue;" class="container">
+    @*Search criteria goes here*@
+    <div class="col-12">
+        <div class="row" style="padding-top:10px;">
+            <div class="col-2">
+                Customer name
+            </div>
+            <div class="col-3">
+                @Html.Editor("searchName", new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-2">
+                Email
+            </div>
+            <div class="col-3">
+                @Html.Editor("searchEmail", new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="row" style="padding-top:10px;">
+            <div class="col-2">
+                Phone number
+            </div>
+            <div class="col-3">
+                @Html.Editor("searchPhone", new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-2">
+                Appointmnet date
+            </div>
+            <div class="col-3">
+                @Html.Editor("searchDate", new { htmlAttributes = new { @class = "form-control", @id = "datepicker" } })
+            </div>
+        </div>
+        <div class="row" style="padding-top:10px;">
+            <div class="col-2">
+            </div>
+            <div class="col-3">
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-2">
+            </div>
+            <div class="col-3">
+                <button type="submit" name="submit" value="Search" class="btn btn-primary form-control">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br /><br />
+
+@*<div>
+       asp-page="Create"
+       <a asp-action="Create" class="btn btn-primary">Create Product Type</a>
+    </div>*@
+<table class="table table-striped border">
+    <tr class="table-info">
+        <th>
+            @Html.DisplayNameFor(m => m.Appointments.FirstOrDefault().SalesPerson);
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.Appointments.FirstOrDefault().AppointmentDate);
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.Appointments.FirstOrDefault().CustomerName);
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.Appointments.FirstOrDefault().CustomerEmail);
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.Appointments.FirstOrDefault().CustomerPhoneNumber);
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.Appointments.FirstOrDefault().IsConfirmed);
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Appointments)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(m => item.SalesPerson.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.AppointmentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.CustomerEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.CustomerPhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.IsConfirmed)
+            </td>
+            <partial name="_ButtonPartialView" model="@item.Id" />
+        </tr>
+
+    }
+</table>

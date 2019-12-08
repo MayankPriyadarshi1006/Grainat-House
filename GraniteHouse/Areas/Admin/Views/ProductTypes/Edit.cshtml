@@ -1,0 +1,33 @@
+﻿@model GraniteHouse.Models.ProductType
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+<div class="row">
+    <form method="post" asp-action="Edit">
+        <input type="hidden" asp-for="Id" />
+        <div class="p-4 border rounded">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Name"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div><br />
+        <div>
+            <input type="submit" class="btn btn primary" value="Update" asp-route-id="@Model.Id" />
+            <a asp-action="Index" class="btn-btn succ">Back To List</a>
+        </div>
+    </form>
+</div>
+
+@*@section Scripts{
+        @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@

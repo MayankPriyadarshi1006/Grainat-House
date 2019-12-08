@@ -1,0 +1,79 @@
+﻿
+@model GraniteHouse.Models.ViewModel.ProductViewModel
+@using GraniteHouse.Extensions
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<br />
+<h2 class="text-info">Product Details</h2>
+<form method="post" enctype="multipart/form-data">
+    <div class="p-4 border rounded row">        
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="products.Name"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="products.Name" class="form-control" disabled/>
+                </div>                
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="products.Price"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="products.Price" class="form-control" disabled/>
+                </div>                
+            </div>
+           
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="producttype"></label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="products.ProductTypeId" asp-items="@Model.producttype.ToSelectListItem(Model.products.ProductTypeId)" class="form-control" disabled></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="specialtags"></label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="products.SpecialTagId" asp-items="@Model.specialtags.ToSelectListItem(Model.products.SpecialTagId)" class="form-control" disabled></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="products.ShadeColor"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="products.ShadeColor" class="form-control" disabled/>
+                </div>               
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="products.Available"></label>
+                </div>
+                <div class="col-8">
+                    <input type="checkbox" asp-for="products.Available" disabled/>
+                </div>
+            </div>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-3">
+            <img src="@Model.products.Image" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+        </div>
+
+        <br />
+        <div>
+            <a asp-action="Edit" asp-route-Id="@Model.products.Id" class="btn btn-primary">Edit</a>
+            <a asp-action="Index" class="btn btn-success">Back to list</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
